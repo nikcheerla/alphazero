@@ -2,6 +2,7 @@
 import sys, os, random, time, warnings
 
 from itertools import product
+import math
 import numpy as np
 import IPython
 
@@ -66,7 +67,7 @@ class MCTSController(object):
 		N = self.visits.get("total", 1)
 		Ni = self.visits.get(hashable(game.state()), 1e-9)
 		V = self.differential.get(hashable(game.state()), 0)*1.0/Ni 
-		return V + self.C*(np.log(N)/Ni)
+		return V + self.C*math.sqrt(np.log(N)/Ni)
 
 	r"""
 	Evaluates the "value" of a state by randomly playing out games starting from that state and noting the win/loss ratio.
